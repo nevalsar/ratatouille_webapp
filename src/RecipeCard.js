@@ -11,6 +11,10 @@ class RecipeCard extends React.Component {
         this.description = props.description;
     }
 
+    handleRecipeSubmit(name) {
+        console.log(`Submitted ${name}`);
+    }
+
     render() {
         return (
             <div className="card">
@@ -24,7 +28,7 @@ class RecipeCard extends React.Component {
                     <p className="card-text">
                         {this.description}
                     </p>
-                    <button href="#" className="btn btn-success float-right">Select</button>
+                    <button href="#" className="btn btn-success float-right" onClick={()=>{this.handleRecipeSubmit(this.name)}}>Select</button>
                 </div>
             </div>
         );
