@@ -45,6 +45,7 @@ body {
   background: linear-gradient(150.63deg, #ffb299, #ffe0b6);
 }
 
-/* #recipes-list {
-  margin-bottom: 30%;
-} */
+#recipes-list {
+  /* margin-bottom: 30%; */
+  padding: 0;
+}
