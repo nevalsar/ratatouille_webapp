@@ -9,12 +9,24 @@
     height: 65%;
     object-fit: cover;
 } */
-.recipe-card {
-    padding: 0;
-    /* width: 30% !important; */
-}
 
+/*
 .recipe-card img {
     height: 60%;
     object-fit: cover;
+} */
+
+.recipe-card-image > .col {
+    display: flex;
+    justify-content: center;
+}
+
+.recipe-card-image img {
+    object-fit: cover;
+    max-width: 100%;
+}
+
+.recipe-card {
+    border: solid 1px;
+    background-color: rgba(0, 0, 0, 0.1);
 }

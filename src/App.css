@@ -41,14 +41,10 @@ html {
   min-height: 100%;
 }
 
-.recipes-list {
-  justify-content: space-evenly;
-}
-
 body {
   background: linear-gradient(150.63deg, #ffb299, #ffe0b6);
 }
 
-#content {
+/* #recipes-list {
   margin-bottom: 30%;
-}
+} */

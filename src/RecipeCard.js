@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './RecipeCard.css';
-import { Form, Card, Button } from 'react-bootstrap';
+import { Form, Card, Button, Image } from 'react-bootstrap';
 
 class RecipeCard extends React.Component {
     constructor(props) {
@@ -19,6 +19,46 @@ class RecipeCard extends React.Component {
     }
 
     render() {
+        return (
+            <div className='recipe-card my-3'>
+                <div className='row recipe-card-image'>
+                    <div className='col center p-4'>
+                        <Image src={`images/${this.name}.jpg`} />
+                    </div>
+                </div>
+                <div className='row recipe-card-content'>
+                    <div className='col center p-4 pt-0'>
+                        <h1>{this.title}</h1>
+                        <p>{this.description}</p>
+                        <Form>
+                            {this.choices.map(choice =>
+                                <Form.Group key={`inline-radio-${choice.name}`} className="mb-3 form-control" controlId={`inline-radio-${choice.name}`}>
+                                    <Form.Label>{choice.name}</Form.Label> <br />
+                                    {
+                                        // render radio buttons for each choice according to scale
+                                        [...Array(choice.scale).keys()].map(value => {
+                                            value = value + 1;
+                                            return (<Form.Check
+                                                inline
+                                                label={value}
+                                                name={`group${value}`}
+                                                type="radio"
+                                                id={`inline-radio-${value}`}
+                                                key={`${this.name}-choice-${value}`}
+                                            />);
+                                        })
+                                    }
+                                </Form.Group>
+                            )}
+                            <Button variant="success">Select</Button>
+                        </Form>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    render3() {
         return (
             <Card className="recipe-card" style={{ width: '18rem' }}>
                 <Card.Img variant="top" src={`images/${this.name}.jpg`} />

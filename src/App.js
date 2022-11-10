@@ -26,11 +26,10 @@ function App() {
     // </div>
     <>
       <Header />
-      <div id="content" className="container-fluid">
-        <h1 className="text-center my-5">Autonomous Robotic Kitchen</h1>
-        <div className="row recipes-list">
-          {recipes.recipes.map(recipe => <RecipeCard name={recipe.name} key={`recipe-card-${recipe.name}`} choices={recipe.choices} description={recipe.description} />)}
-        </div>
+      <h1 className="text-center my-5">Autonomous Robotic Kitchen</h1>
+      <div id="recipes-list" className="container-sm">
+        {recipes.recipes.map(recipe =>
+          <RecipeCard name={recipe.name} key={`recipe-card-${recipe.name}`} choices={recipe.choices} description={recipe.description} />)}
       </div>
       <Footer />
     </>
