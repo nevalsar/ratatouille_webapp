@@ -22,12 +22,12 @@ class RecipeCard extends React.Component {
         return (
             <div className='recipe-card my-3'>
                 <div className='row recipe-card-image'>
-                    <div className='col center p-4'>
+                    <div className='col p-4'>
                         <Image src={`images/${this.name}.jpg`} />
                     </div>
                 </div>
                 <div className='row recipe-card-content'>
-                    <div className='col center p-4 pt-0'>
+                    <div className='col text-center p-4 pt-0'>
                         <h1>{this.title}</h1>
                         <p>{this.description}</p>
                         <Form>
