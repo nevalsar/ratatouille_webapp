@@ -3,15 +3,13 @@ import React, { Component } from 'react';
 
 class Header extends Component {
     render() {
-        const iconStyle = { fontSize: '2rem', color: 'black' };
         return (
-            <header className="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-                <a href="/" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-
-                    <span className="fs-4">Ratatouille Robotics</span>
+            <header className="d-flex flex-wrap py-3 mb-4 px-4 border-bottom justify-content-evenly">
+                <a href="/" className="d-flex align-items-center mb-md-0 me-md-auto text-dark text-decoration-none">
+                    <img src="rata-logo-name-transparent-black.png" />
                 </a>
 
-                <a href='https://github.com/ratatouille-robotics'><i className="bi-github" style={iconStyle}></i></a>
+                <a className='d-flex align-items-center text-dark text-decoration-none' href='https://github.com/ratatouille-robotics'><i className="bi-github"></i></a>
 
             </header>
         );
