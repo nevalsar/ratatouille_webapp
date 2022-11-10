@@ -9,7 +9,7 @@ class Header extends Component {
                     <img src="rata-logo-name-transparent-black.png" />
                 </a>
 
-                <a className='d-flex align-items-center text-dark text-decoration-none' href='https://github.com/ratatouille-robotics'><i className="bi-github"></i></a>
+                <a className='d-flex align-items-center text-dark text-decoration-none' href='https://github.com/ratatouille-robotics' target='_blank'><i className="bi-github"></i></a>
 
             </header>
         );

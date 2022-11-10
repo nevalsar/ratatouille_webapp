@@ -11,3 +11,7 @@
 #footer * {
     color: black !important;
 }
+
+.nav-item i {
+    font-size: x-large;
+}
