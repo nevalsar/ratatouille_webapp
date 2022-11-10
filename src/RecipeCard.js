@@ -10,7 +10,6 @@ class RecipeCard extends React.Component {
             word.charAt(0).toUpperCase() + word.substring(1)
         ).join(" ");
         this.description = props.description;
-        // choices = {("spicy":),}
         this.choices = props.choices;
     }
 
@@ -41,7 +40,7 @@ class RecipeCard extends React.Component {
                                             return (<Form.Check
                                                 inline
                                                 label={value}
-                                                name={`group${value}`}
+                                                name={choice.name}
                                                 type="radio"
                                                 id={`inline-radio-${value}`}
                                                 key={`${this.name}-choice-${value}`}
