@@ -33,25 +33,25 @@
         url: "ws://localhost:9090",
       });
 
-      var fibonacciClient = new ROSLIB.ActionClient({
+      var recipeClient = new ROSLIB.ActionClient({
         ros: ros,
-        serverName: "/fibonacci",
-        actionName: "actionlib_tutorials/FibonacciAction",
+        serverName: "/RecipeRequest",
+        actionName: "ratatouille_planner/RecipeRequestAction",
       });
 
       var goal = new ROSLIB.Goal({
-        actionClient: fibonacciClient,
+        actionClient: recipeClient,
         goalMessage: {
-          order: 7,
+          recipe_id: 3,
         },
       });
 
       goal.on("feedback", function (feedback) {
-        console.log("Feedback: " + feedback.sequence);
+        console.log("Feedback: " + feedback.percent_complete);
       });
 
       goal.on("result", function (result) {
-        console.log("Final Result: " + result.sequence);
+        console.log("Final Result: " + result.status);
       });
 
       ros.on("connection", function () {
