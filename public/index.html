@@ -26,49 +26,6 @@
     -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
-    <script src="ros/eventemitter2.js"></script>
-    <script src="ros/roslib.js"></script>
-    <script>
-      var ros = new ROSLIB.Ros({
-        url: "ws://localhost:9090",
-      });
-
-      var recipeClient = new ROSLIB.ActionClient({
-        ros: ros,
-        serverName: "/RecipeRequest",
-        actionName: "ratatouille_planner/RecipeRequestAction",
-      });
-
-      var goal = new ROSLIB.Goal({
-        actionClient: recipeClient,
-        goalMessage: {
-          recipe_id: 3,
-        },
-      });
-
-      goal.on("feedback", function (feedback) {
-        console.log("Feedback: " + feedback.percent_complete);
-      });
-
-      goal.on("result", function (result) {
-        console.log("Final Result: " + result.status);
-      });
-
-      ros.on("connection", function () {
-        console.log("Connected to websocket server.");
-      });
-
-      ros.on("error", function (error) {
-        console.log("Error connecting to websocket server: ", error);
-      });
-
-      ros.on("close", function () {
-        console.log("Connection to websocket server closed.");
-      });
-
-      goal.send();
-    </script>
-
     <title>Ratatouille Robotics</title>
   </head>
   <body>
