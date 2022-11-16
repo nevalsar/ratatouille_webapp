@@ -6,7 +6,7 @@ const SendRecipeGoal = (recipe_id) => {
 
 
     var client = new RosClient({
-        url: "ws://localhost:9090"
+        url: "ws://128.2.178.35:9090"
     });
 
     var serverName = "/RecipeRequest"
