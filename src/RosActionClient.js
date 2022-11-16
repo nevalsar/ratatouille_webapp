@@ -2,7 +2,7 @@ import RosClient from '@ifollow/ros-client';
 
 // var RosClient = require("roslibjs-client"); // This is not necessary in the browser
 
-const SendGoal = (recipe_id) => {
+const SendRecipeGoal = (recipe_id) => {
 
 
     var client = new RosClient({
@@ -14,7 +14,8 @@ const SendGoal = (recipe_id) => {
     var payload = {
         recipe_id: recipe_id
     }
-    var timeout = 10
+    var timeout = undefined
+
     var feedback_callback = function (feedback) {
         console.log("Feedback: ", feedback);
     }
@@ -29,4 +30,4 @@ const SendGoal = (recipe_id) => {
 
 }
 
-export default SendGoal;
+export default SendRecipeGoal;

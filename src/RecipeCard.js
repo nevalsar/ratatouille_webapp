@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './RecipeCard.css';
 import { Form, Card, Button, Image } from 'react-bootstrap';
+import SendRecipeGoal from './RosActionClient';
 
 class RecipeCard extends React.Component {
     constructor(props) {
@@ -11,10 +12,12 @@ class RecipeCard extends React.Component {
         ).join(" ");
         this.description = props.description;
         this.choices = props.choices;
+        this.recipe_id = props.recipe_id;
     }
 
-    handleRecipeSubmit(name) {
-        console.log(`Submitted ${this.name}`);
+    handleRecipeSubmit() {
+        SendRecipeGoal(this.recipe_id);
+        console.log(`Submitted recipe [${this.recipe_id}] "${this.name}"`);
     }
 
     render() {
@@ -49,7 +52,7 @@ class RecipeCard extends React.Component {
                                     }
                                 </Form.Group>
                             )}
-                            <Button variant="success" onClick={() => { this.handleRecipeSubmit(this.name) }}>Select</Button>
+                            <Button variant="success" onClick={() => { this.handleRecipeSubmit() }}>Select</Button>
                         </Form>
                     </div>
                 </div>
