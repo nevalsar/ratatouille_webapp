@@ -79,3 +79,9 @@ body {
 @-webkit-keyframes spin {
   to { -webkit-transform: rotate(360deg); }
 }
+
+.progress-gif {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

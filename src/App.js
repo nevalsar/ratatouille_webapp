@@ -88,7 +88,10 @@ class App extends React.Component {
         >
           <Modal.Body>
             <h4 className='text-center'>Dispensing In Progress</h4>
-            <div className='modal-spinner-box'><div id="loading"></div></div>
+            <div className='modal-spinner-box'>
+              {/* <div id="loading"></div> */}
+              <img className='progress-gif' src="./rata-cooking.gif" />
+            </div>
           </Modal.Body>
         </Modal>
 
