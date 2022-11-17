@@ -4,12 +4,13 @@
     margin-bottom: 0 !important;
     padding-left: 2rem;
     padding-right: 2rem;
+    /* color: white; */
     /* position: fixed; */
     /* bottom: 0; */
 }
 
 #footer * {
-    color: black !important;
+    color: white !important;
 }
 
 .nav-item i {

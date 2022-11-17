@@ -1,9 +1,13 @@
 header {
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.3);;
 }
 
 header i {
     font-size: 3rem;
+}
+
+header * {
+    color: white;
 }
 
 header img {

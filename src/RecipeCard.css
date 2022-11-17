@@ -24,9 +24,10 @@
 .recipe-card-image img {
     object-fit: cover;
     max-width: 100%;
-    border: solid 1px;
+    /* border: solid 1px; */
 }
 
 .recipe-card {
     background-color: rgba(0, 0, 0, 0.1);
+    /* color: white; */
 }
