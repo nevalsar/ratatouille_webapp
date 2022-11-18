@@ -1,46 +1,30 @@
 {
     "recipes": [
         {
-            "name": "poha",
-            "id": 1,
-            "description": "Some quick example text to build on the card title and make up the bulk of the card's content.",
-            "choices": [
-                {
-                    "name": "dryness",
-                    "scale": 3
-                },
-                {
-                    "name": "spice level",
-                    "scale": 4
-                }
-            ]
-        },
-        {
             "name": "pasta",
             "id": 2,
             "description": "Some quick example text to build on the card title and make up the bulk of the card's content.",
             "choices": [
                 {
-                    "name": "spice level",
-                    "scale": 5
+                    "name": "Oregano",
+                    "scale": 2
                 },
                 {
-                    "name": "salt",
-                    "scale": 3
+                    "name": "Bell Pepper",
+                    "scale": 2
                 }
             ]
         },
         {
-            "name": "mediterranean-salad",
+            "name": "ramen",
             "id": 3,
             "description": "Some quick example text to build on the card title and make up the bulk of the card's content.",
-            "choices": []
-        },
-        {
-            "name": "pulao",
-            "id": 4,
-            "description": "Some quick example text to build on the card title and make up the bulk of the card's content.",
-            "choices": []
+            "choices": [
+                {
+                    "name": "Spice Level",
+                    "scale": 5
+                }
+            ]
         }
     ]
 }
