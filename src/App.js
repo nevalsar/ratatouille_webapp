@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+const { actionServerUrl } = require('./ratatouille-ui-config.json');
 import RosClient from '@ifollow/ros-client';
 import recipes from './recipes.json'
 import './App.css';
@@ -15,16 +16,18 @@ class App extends React.Component {
       isDispensing: false,
       recipeId: -1
     }
+    this.ros_client = new RosClient({
+      url: actionServerUrl
+    });
+    this.ros_client.on("connected", () =>
+      console.log("Connected to Ratatouille Action Server."));
   }
 
   SendRecipeGoal = (recipe_id) => {
 
-    this.setState({ recipeId: recipe_id, isDispensing: true });
+    console.log(`Requesting recipe [${recipe_id}]`);
 
-    var client = new RosClient({
-      // url: "ws://128.2.178.35:9090"
-      url: "ws://localhost:9090"
-    });
+    this.setState({ recipeId: recipe_id, isDispensing: true });
 
     var serverName = "/RecipeRequest"
     var actionName = "ratatouille_planner/RecipeRequestAction"
@@ -45,7 +48,7 @@ class App extends React.Component {
       console.log("Result: ", result);
     }.bind(this)
 
-    client.action.send(serverName, actionName, payload, timeout, feedback_callback, timeout_callback, result_callback);
+    this.ros_client.action.send(serverName, actionName, payload, timeout, feedback_callback, timeout_callback, result_callback);
 
   }
 
