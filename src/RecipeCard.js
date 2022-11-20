@@ -48,7 +48,7 @@ class RecipeCard extends React.Component {
                                     }
                                 </Form.Group>
                             )}
-                            <Button variant="success" onClick={() => this.submitRecipe(this.recipe_id)}>Select</Button>
+                            <Button variant="success" onClick={() => this.submitRecipe(this.recipe_id, this.title)}>Select</Button>
                         </Form>
                     </div>
                 </div>

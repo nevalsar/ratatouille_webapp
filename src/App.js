@@ -13,8 +13,10 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isDispensing: false,
-      recipeId: -1
+      dispensingState: 0,
+      recipeId: -1,
+      recipeName: "",
+      lastResult: null
     }
     this.ros_client = new RosClient({
       url: actionServerUrl
@@ -23,11 +25,11 @@ class App extends React.Component {
       console.log("Connected to Ratatouille Action Server."));
   }
 
-  SendRecipeGoal = (recipe_id) => {
+  SendRecipeGoal = (recipe_id, recipe_name) => {
 
-    console.log(`Requesting recipe [${recipe_id}]`);
+    console.log(`Requesting recipe [${recipe_id}] [${recipe_name}].`);
 
-    this.setState({ recipeId: recipe_id, isDispensing: true });
+    this.setState({ recipeId: recipe_id, recipeName: recipe_name, dispensingState: 1 });
 
     var serverName = "/RecipeRequest"
     var actionName = "ratatouille_planner/RecipeRequestAction"
@@ -44,9 +46,10 @@ class App extends React.Component {
       // In that case, you can, as an example, cancel the group
     }
     var result_callback = function (result) {
-      this.setState({ ...this.state, isDispensing: false });
       console.log("Result: ", result);
+      this.setState({ ...this.state, dispensingState: 2, lastresult: result.status });
     }.bind(this)
+    // }
 
     this.ros_client.action.send(serverName, actionName, payload, timeout, feedback_callback, timeout_callback, result_callback);
 
@@ -58,45 +61,76 @@ class App extends React.Component {
   // this.SendRecipeGoal(recipe_id);
   // }
 
-  getModal = () => (<Modal.Dialog>
-    <Modal.Header closeButton>
-      <Modal.Title>Modal title</Modal.Title>
-    </Modal.Header>
+  getProgressModal = () => (
+    <Modal
+      className="modal modal-progress"
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+      show={this.state.dispensingState == 1}
+    >
+      <Modal.Body>
+        <h4 className='text-center'>Your {this.state.recipeName} is being prepared!</h4>
+        <div className='modal-spinner-box'>
+          <img className='progress-gif' src="./rata-cooking.gif" />
+        </div>
+      </Modal.Body>
+    </Modal>
+  )
 
-    <Modal.Body>
-      <p>Modal body text goes here.</p>
-    </Modal.Body>
+  dismissModal = () => this.setState({ ...this.state, recipeId: -1, recipeName: "", dispensingState: 0 })
 
-    <Modal.Footer>
-      <Button variant="secondary">Close</Button>
-      <Button variant="primary">Save changes</Button>
-    </Modal.Footer>
-  </Modal.Dialog>)
+  getResultModal = () => (
+    <Modal
+      className="modal modal-result"
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+      show={this.state.dispensingState == 2}
+    >
+      <Modal.Body>
+        {this.state.lastresult == "success" &&
+          <>
+            <h4 className='text-center'>Your {this.state.recipeName} is ready!</h4>
+            <i className="bi-check-circle-fill text-success" />
+          </>
+        }
+
+        {this.state.lastresult == "error" &&
+          <>
+            <h4 className='text-center'>Uh oh!</h4>
+            <h4 className='text-center'>{this.state.recipeName} could not be prepared!</h4>
+            <i className="bi-exclamation-circle-fill text-warning" />
+          </>
+        }
+
+        {this.state.lastresult == "quantityerror" &&
+          <>
+            <h4 className='text-center'>Uh oh!</h4>
+            <h4 className='text-center'>Insufficient ingredients to make {this.state.recipeName}!</h4>
+            <i className="bi-exclamation-circle-fill text-warning" />
+          </>
+        }
+
+
+        {/* [success: [{JSON.stringify(this.state.lastresult)}]] */}
+
+
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" onClick={this.dismissModal}>Back to Recipes</Button>
+      </Modal.Footer>
+    </Modal>
+  )
 
   render() {
     return (
       <>
         <Header />
         <h1 className="text-center my-5">Autonomous Robotic Kitchen</h1>
-        {/* {this.state.isDispensing ?
-          <Alert variant="warning">Dispensing recipe [{this.state.recipeId}].</Alert> :
-          <Alert variant="primary">Ready to dispense.</Alert>} */}
 
-        <Modal
-          className="modal"
-          size="lg"
-          aria-labelledby="contained-modal-title-vcenter"
-          centered
-          show={this.state.isDispensing}
-        >
-          <Modal.Body>
-            <h4 className='text-center'>Dispensing In Progress</h4>
-            <div className='modal-spinner-box'>
-              {/* <div id="loading"></div> */}
-              <img className='progress-gif' src="./rata-cooking.gif" />
-            </div>
-          </Modal.Body>
-        </Modal>
+        {this.getProgressModal()}
+        {this.getResultModal()}
 
         <div id="recipes-list" className="container-sm">
           {recipes.recipes.map(recipe =>

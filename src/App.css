@@ -56,6 +56,13 @@ body {
   color: black;
 }
 
+.modal-result .modal-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: xxx-large;
+}
+
 .modal-spinner-box {
   display: flex;
   justify-content: center;
@@ -81,7 +88,8 @@ body {
 }
 
 .progress-gif {
-  width: 100%;
-  height: 100%;
+  width: 80%;
+  height: 80%;
   object-fit: cover;
 }
+
