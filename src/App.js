@@ -76,7 +76,7 @@ class App extends React.Component {
         <div className='modal-spinner-box'>
           <img className='progress-gif' src="./rata-cooking.gif" />
         </div>
-        <ProgressBar className='mt-3' animated now={this.state.progress} />
+        <ProgressBar className='mt-3' variant="success" animated now={this.state.progress} />
       </Modal.Body>
     </Modal>
   )
