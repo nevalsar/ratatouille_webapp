@@ -7,7 +7,7 @@ import './App.css';
 import RecipeCard from './RecipeCard';
 import Footer from './Footer';
 import Header from './Header';
-import { Alert, Modal, Button } from 'react-bootstrap';
+import { ProgressBar, Modal, Button } from 'react-bootstrap';
 
 class App extends React.Component {
   constructor(props) {
@@ -16,7 +16,8 @@ class App extends React.Component {
       dispensingState: 0,
       recipeId: -1,
       recipeName: "",
-      lastResult: null
+      lastResult: null,
+      progress: 0
     }
     this.ros_client = new RosClient({
       url: actionServerUrl
@@ -40,7 +41,9 @@ class App extends React.Component {
 
     var feedback_callback = function (feedback) {
       console.log("Feedback: ", feedback);
-    }
+      this.setState({ ...this.state, progress: feedback.percent_complete });
+    }.bind(this)
+
     var timeout_callback = function () {
       console.log("Timed out!");
       // In that case, you can, as an example, cancel the group
@@ -49,7 +52,6 @@ class App extends React.Component {
       console.log("Result: ", result);
       this.setState({ ...this.state, dispensingState: 2, lastresult: result.status });
     }.bind(this)
-    // }
 
     this.ros_client.action.send(serverName, actionName, payload, timeout, feedback_callback, timeout_callback, result_callback);
 
@@ -64,7 +66,7 @@ class App extends React.Component {
   getProgressModal = () => (
     <Modal
       className="modal modal-progress"
-      size="lg"
+      size="md"
       aria-labelledby="contained-modal-title-vcenter"
       centered
       show={this.state.dispensingState == 1}
@@ -74,6 +76,7 @@ class App extends React.Component {
         <div className='modal-spinner-box'>
           <img className='progress-gif' src="./rata-cooking.gif" />
         </div>
+        <ProgressBar className='mt-3' animated now={this.state.progress} />
       </Modal.Body>
     </Modal>
   )
@@ -83,7 +86,7 @@ class App extends React.Component {
   getResultModal = () => (
     <Modal
       className="modal modal-result"
-      size="lg"
+      size="md"
       aria-labelledby="contained-modal-title-vcenter"
       centered
       show={this.state.dispensingState == 2}
