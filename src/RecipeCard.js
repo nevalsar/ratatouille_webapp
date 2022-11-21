@@ -57,6 +57,7 @@ class RecipeCard extends React.Component {
                                     <Form.Check
                                         type="checkbox"
                                         id={choice.name.toLowerCase().replace(" ", "-")}
+                                        defaultChecked={true}
                                         key={choice.name}
                                         label={choice.name}
                                     />
