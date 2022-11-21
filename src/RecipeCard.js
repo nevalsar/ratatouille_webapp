@@ -48,10 +48,10 @@ class RecipeCard extends React.Component {
                     </div>
                 </div>
                 <div className='row recipe-card-content'>
-                    <div className='col p-4 pt-0'>
+                    <div className='col p-4 pt-0 text-center'>
                         <h1>{this.title}</h1>
                         <p>{this.description}</p>
-                        <Form>
+                        <Form className='customizations-form'>
                             <div className="mb-3">
                                 {this.choices.map(choice =>
                                     <Form.Check
@@ -63,7 +63,7 @@ class RecipeCard extends React.Component {
                                     />
                                 )}
                             </div>
-                            <Button variant="success" onClick={this.handleSubmitClick}>Select</Button>
+                            <Button variant="success" size="md" onClick={this.handleSubmitClick}>Select</Button>
                         </Form>
                     </div>
                 </div>
