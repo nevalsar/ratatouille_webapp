@@ -81,7 +81,7 @@ class App extends React.Component {
     </Modal>
   )
 
-  dismissModal = () => this.setState({ ...this.state, recipeId: -1, recipeName: "", dispensingState: 0 })
+  dismissModal = () => this.setState({ ...this.state, progress: 0, recipeId: -1, recipeName: "", dispensingState: 0 })
 
   getResultModal = () => (
     <Modal
@@ -102,26 +102,31 @@ class App extends React.Component {
         {this.state.lastresult == "error" &&
           <>
             <h4 className='text-center'>Uh oh!</h4>
-            <h4 className='text-center'>{this.state.recipeName} could not be prepared!</h4>
-            <i className="bi-exclamation-circle-fill text-warning" />
+            <h4 className='text-center'>We ran into an error.</h4>
+            <i className="bi-exclamation-circle-fill text-danger" />
           </>
         }
 
         {this.state.lastresult == "quantityerror" &&
           <>
             <h4 className='text-center'>Uh oh!</h4>
-            <h4 className='text-center'>Insufficient ingredients to make {this.state.recipeName}!</h4>
+            <h4 className='text-center'>Insufficient ingredients to make {this.state.recipeName}.</h4>
             <i className="bi-exclamation-circle-fill text-warning" />
           </>
         }
 
-
-        {/* [success: [{JSON.stringify(this.state.lastresult)}]] */}
-
-
       </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={this.dismissModal}>Back to Recipes</Button>
+      <Modal.Footer className='justify-content-center'>
+        {this.state.lastresult == "success" ?
+          <Button variant="secondary" onClick={this.dismissModal}>
+            Done
+          </Button> :
+          <Button variant="secondary" onClick={this.dismissModal}>
+            Go back
+          </Button>
+        }
+
+
       </Modal.Footer>
     </Modal>
   )
