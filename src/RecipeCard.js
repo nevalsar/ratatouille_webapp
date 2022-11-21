@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './RecipeCard.css';
-import { Form, Card, Button, Image } from 'react-bootstrap';
-import send_goal from './RosActionClient';
+import { Form, Button, Image } from 'react-bootstrap';
 
 class RecipeCard extends React.Component {
     constructor(props) {
@@ -16,6 +15,30 @@ class RecipeCard extends React.Component {
         this.submitRecipe = props.submitRecipe;
     }
 
+    handleSubmitClick = () => {
+
+        // hack for customization
+        if (this.recipe_id == 2) {
+            var target_recipe_id = -1;
+            let oregano = document.querySelector("#oregano").checked;
+            let bellpepper = document.querySelector("#bell-pepper").checked;
+
+            if (oregano && bellpepper) {
+                target_recipe_id = 21;
+            } else if (oregano && !bellpepper) {
+                target_recipe_id = 22;
+            } else if (!oregano && bellpepper) {
+                target_recipe_id = 23;
+            } else {
+                target_recipe_id = 24;
+            }
+            this.submitRecipe(target_recipe_id, this.title);
+            return
+        }
+
+        this.submitRecipe(this.recipe_id, this.title);
+    }
+
     render() {
         return (
             <div className='recipe-card my-3'>
@@ -25,30 +48,21 @@ class RecipeCard extends React.Component {
                     </div>
                 </div>
                 <div className='row recipe-card-content'>
-                    <div className='col text-center p-4 pt-0'>
+                    <div className='col p-4 pt-0'>
                         <h1>{this.title}</h1>
                         <p>{this.description}</p>
                         <Form>
-                            {this.choices.map(choice =>
-                                <Form.Group key={`inline-radio-${choice.name}`} className="mb-3 form-control" controlId={`inline-radio-${choice.name}`}>
-                                    <Form.Label>{choice.name}</Form.Label> <br />
-                                    {
-                                        // render radio buttons for each choice according to scale
-                                        [...Array(choice.scale).keys()].map(value => {
-                                            value = value + 1;
-                                            return (<Form.Check
-                                                inline
-                                                label={value}
-                                                name={choice.name}
-                                                type="radio"
-                                                id={`inline-radio-${value}`}
-                                                key={`${this.name}-choice-${value}`}
-                                            />);
-                                        })
-                                    }
-                                </Form.Group>
-                            )}
-                            <Button variant="success" onClick={() => this.submitRecipe(this.recipe_id, this.title)}>Select</Button>
+                            <div className="mb-3">
+                                {this.choices.map(choice =>
+                                    <Form.Check
+                                        type="checkbox"
+                                        id={choice.name.toLowerCase().replace(" ", "-")}
+                                        key={choice.name}
+                                        label={choice.name}
+                                    />
+                                )}
+                            </div>
+                            <Button variant="success" onClick={this.handleSubmitClick}>Select</Button>
                         </Form>
                     </div>
                 </div>
