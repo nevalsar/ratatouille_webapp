@@ -9,6 +9,7 @@ import Header from './components/Header';
 import ResultsModal from './components/ResultsModal';
 import ProgressModal from './components/ProgressModal';
 import { GetRecipeRequestClient, SendRecipeRequest } from './RecipeRequestClient';
+import { Alert } from 'react-bootstrap';
 
 
 class App extends React.Component {
@@ -19,9 +20,11 @@ class App extends React.Component {
       recipeId: -1,
       recipeName: "",
       lastResult: null,
-      progress: 0
+      progress: 0,
+      serverConnected: false
     }
-    this.ros_client = GetRecipeRequestClient();
+
+    this.recipe_request_client = null;
 
     this.recipe_feedback_callback = function (feedback) {
       console.log("Feedback: ", feedback);
@@ -42,7 +45,7 @@ class App extends React.Component {
     this.setState({ recipeId: recipe_id, recipeName: recipe_name, dispensingState: 1 });
 
     SendRecipeRequest(
-      this.ros_client,
+      this.recipe_request_client,
       recipe_id,
       recipe_name,
       this.recipe_feedback_callback,
@@ -58,10 +61,26 @@ class App extends React.Component {
     dispensingState: 0
   })
 
+  componentDidMount() {
+    this.recipe_request_client = GetRecipeRequestClient(
+      () => {
+        console.log("Connected to Recipe Request Server.")
+        this.setState({ serverConnected: true })
+      },
+      () => {
+        console.log("Disconnected from Recipe Request Server.")
+        this.setState({ serverConnected: false })
+      },
+    )
+  }
+
   render() {
     return (
       <>
         <Header />
+        <Alert variant="danger" className="text-center" hidden={this.state.serverConnected}>
+          Server disconnected!
+        </Alert>
         <h1 className="text-center my-5">
           Autonomous Robotic Kitchen
         </h1>

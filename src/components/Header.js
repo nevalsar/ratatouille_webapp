@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 class Header extends Component {
     render() {
         return (
-            <header className="d-flex flex-wrap py-3 mb-4 px-4 justify-content-evenly">
+            <header className="d-flex flex-wrap py-3 px-4 justify-content-evenly">
                 <a href="/" className="d-flex align-items-center mb-md-0 me-md-auto text-dark text-decoration-none">
                     <img src="rata-logo-name-transparent-white.png" />
                 </a>

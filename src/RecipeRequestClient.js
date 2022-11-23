@@ -1,13 +1,12 @@
 import RosClient from '@ifollow/ros-client';
 const { actionServerUrl } = require('./ratatouille-ui-config.json');
 
-const GetRecipeRequestClient = () => {
+const GetRecipeRequestClient = (connect_callback, disconnect_callback) => {
     const client = new RosClient({
         url: actionServerUrl,
     })
-    client.on("connected", () =>
-        console.log("Connected to Recipe Request Server."));
-
+    client.on("connected", connect_callback);
+    client.on("disconnected", disconnect_callback);
     return client;
 }
 
