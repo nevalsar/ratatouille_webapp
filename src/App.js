@@ -5,11 +5,11 @@ const { actionServerUrl } = require('./ratatouille-ui-config.json');
 import recipes from './recipes.json'
 
 import './App.css';
-import RecipeCard from './RecipeCard';
-import Footer from './Footer';
-import Header from './Header';
-import ResultsModal from './ResultsModal';
-import ProgressModal from './ProgressModal';
+import RecipeCard from './components/RecipeCard';
+import Footer from './components/Footer';
+import Header from './components/Header';
+import ResultsModal from './components/ResultsModal';
+import ProgressModal from './components/ProgressModal';
 
 
 class App extends React.Component {
