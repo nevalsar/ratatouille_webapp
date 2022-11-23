@@ -1,9 +1,15 @@
 {
     "recipes": [
         {
+            "name": "paneer-fried-rice",
+            "id": 1,
+            "description": "An Indian-Chinese fried rice variant made with rice, paneer (Indian cottage cheese), mixed vegetables, spices and soy sauce.",
+            "choices": []
+        },
+        {
             "name": "pasta",
             "id": 2,
-            "description": "Some quick example text to build on the card title and make up the bulk of the card's content.",
+            "description": "Penne pasta with marinara sauce.",
             "choices": [
                 {
                     "name": "Oregano",
@@ -18,7 +24,7 @@
         {
             "name": "ramen",
             "id": 69,
-            "description": "Some quick example text to build on the card title and make up the bulk of the card's content.",
+            "description": "A Japanese noodle dish consisting of Chinese-style wheat noodles served in a rich broth.",
             "choices": [
                 {
                     "name": "Spicy",
