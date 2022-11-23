@@ -1,13 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
+import RosClient from '@ifollow/ros-client';
 
 const { actionServerUrl } = require('./ratatouille-ui-config.json');
-import RosClient from '@ifollow/ros-client';
 import recipes from './recipes.json'
+
 import './App.css';
 import RecipeCard from './RecipeCard';
 import Footer from './Footer';
 import Header from './Header';
-import { ProgressBar, Modal, Button } from 'react-bootstrap';
+import ResultsModal from './ResultsModal';
+import ProgressModal from './ProgressModal';
+
 
 class App extends React.Component {
   constructor(props) {
@@ -37,99 +40,33 @@ class App extends React.Component {
     var payload = {
       recipe_id: recipe_id
     }
+
     var timeout = undefined
 
     var feedback_callback = function (feedback) {
       console.log("Feedback: ", feedback);
-      this.setState({ ...this.state, progress: feedback.percent_complete });
+      this.setState({ progress: feedback.percent_complete });
     }.bind(this)
 
     var timeout_callback = function () {
-      console.log("Timed out!");
-      // In that case, you can, as an example, cancel the group
+      console.error("RecipeRequest timed out!");
     }
+
     var result_callback = function (result) {
       console.log("Result: ", result);
-      this.setState({ ...this.state, dispensingState: 2, lastresult: result.status });
+      this.setState({ dispensingState: 2, lastResult: result.status });
     }.bind(this)
 
     this.ros_client.action.send(serverName, actionName, payload, timeout, feedback_callback, timeout_callback, result_callback);
 
   }
 
-  // sendRecipeToSystem(recipe_id) {
-  // console.log('i got ' + recipe_id);
-  // this.setState({ ...this.state, recipe_id: recipe_id });
-  // this.SendRecipeGoal(recipe_id);
-  // }
-
-  getProgressModal = () => (
-    <Modal
-      className="modal modal-progress"
-      size="md"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-      show={this.state.dispensingState == 1}
-    >
-      <Modal.Body>
-        <h4 className='text-center'>Your {this.state.recipeName} is being prepared!</h4>
-        <div className='modal-spinner-box'>
-          <img className='progress-gif' src="./rata-cooking.gif" />
-        </div>
-        <ProgressBar className='mt-3' variant="success" animated now={this.state.progress} />
-      </Modal.Body>
-    </Modal>
-  )
-
-  dismissModal = () => this.setState({ ...this.state, progress: 0, recipeId: -1, recipeName: "", dispensingState: 0 })
-
-  getResultModal = () => (
-    <Modal
-      className="modal modal-result"
-      size="md"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-      show={this.state.dispensingState == 2}
-    >
-      <Modal.Body>
-        {this.state.lastresult == "success" &&
-          <>
-            <h4 className='text-center'>Your {this.state.recipeName} is ready!</h4>
-            <i className="bi-check-circle-fill text-success" />
-          </>
-        }
-
-        {this.state.lastresult == "error" &&
-          <>
-            <h4 className='text-center'>Uh oh!</h4>
-            <h4 className='text-center'>We ran into an error.</h4>
-            <i className="bi-exclamation-circle-fill text-danger" />
-          </>
-        }
-
-        {this.state.lastresult == "quantityerror" &&
-          <>
-            <h4 className='text-center'>Uh oh!</h4>
-            <h4 className='text-center'>Insufficient ingredients to make {this.state.recipeName}.</h4>
-            <i className="bi-exclamation-circle-fill text-warning" />
-          </>
-        }
-
-      </Modal.Body>
-      <Modal.Footer className='justify-content-center'>
-        {this.state.lastresult == "success" ?
-          <Button variant="secondary" onClick={this.dismissModal}>
-            Done
-          </Button> :
-          <Button variant="secondary" onClick={this.dismissModal}>
-            Go back
-          </Button>
-        }
-
-
-      </Modal.Footer>
-    </Modal>
-  )
+  dismissModal = () => this.setState({
+    progress: 0,
+    recipeId: -1,
+    recipeName: "",
+    dispensingState: 0
+  })
 
   render() {
     return (
@@ -137,13 +74,34 @@ class App extends React.Component {
         <Header />
         <h1 className="text-center my-5">Autonomous Robotic Kitchen</h1>
 
-        {this.getProgressModal()}
-        {this.getResultModal()}
+        <ProgressModal
+          show={this.state.dispensingState == 1}
+          progress={this.state.progress}
+          recipeName={this.state.recipeName}
+        />
+
+        <ResultsModal
+          show={this.state.dispensingState == 2}
+          dismissModal={this.dismissModal}
+          lastResult={this.state.lastResult}
+          recipeName={this.state.recipeName}
+        />
 
         <div id="recipes-list" className="container-sm">
+
           {recipes.recipes.map(recipe =>
-            <RecipeCard name={recipe.name} key={`recipe-card-${recipe.name}`} recipe_id={recipe.id} choices={recipe.choices} description={recipe.description} submitRecipe={this.SendRecipeGoal} />)}
+            <RecipeCard
+              name={recipe.name}
+              key={`recipe-card-${recipe.name}`}
+              recipe_id={recipe.id}
+              choices={recipe.choices}
+              description={recipe.description}
+              submitRecipe={this.SendRecipeGoal}
+            />
+          )}
+
         </div>
+
         <Footer />
       </>)
   }
