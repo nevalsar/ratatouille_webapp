@@ -1,0 +1,10 @@
+.modal-spinner-box {
+    display: flex;
+    justify-content: center;
+}
+
+.progress-gif {
+    width: 80%;
+    height: 80%;
+    object-fit: cover;
+}

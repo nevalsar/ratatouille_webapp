@@ -1,6 +1,8 @@
 import React from "react";
 import { ProgressBar, Modal } from 'react-bootstrap';
 
+import './ProgressModal.css';
+
 const ProgressModal = (props) => {
     // props.recipeName: str Recipe title
     // props.progress: int [0-100]

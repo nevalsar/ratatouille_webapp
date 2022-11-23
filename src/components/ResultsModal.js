@@ -1,6 +1,8 @@
 import React from "react";
 import { Modal, Button } from 'react-bootstrap';
 
+import './ResultsModal.css';
+
 const ResultsModal = (props) => {
     // props.dismissModal: function to dismiss modal
     // props.lastResult: str RecipeRequestResult.status

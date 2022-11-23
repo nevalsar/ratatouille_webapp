@@ -72,23 +72,10 @@ class App extends React.Component {
     return (
       <>
         <Header />
-        <h1 className="text-center my-5">Autonomous Robotic Kitchen</h1>
-
-        <ProgressModal
-          show={this.state.dispensingState == 1}
-          progress={this.state.progress}
-          recipeName={this.state.recipeName}
-        />
-
-        <ResultsModal
-          show={this.state.dispensingState == 2}
-          dismissModal={this.dismissModal}
-          lastResult={this.state.lastResult}
-          recipeName={this.state.recipeName}
-        />
-
+        <h1 className="text-center my-5">
+          Autonomous Robotic Kitchen
+        </h1>
         <div id="recipes-list" className="container-sm">
-
           {recipes.recipes.map(recipe =>
             <RecipeCard
               name={recipe.name}
@@ -99,10 +86,19 @@ class App extends React.Component {
               submitRecipe={this.SendRecipeGoal}
             />
           )}
-
         </div>
-
         <Footer />
+        <ProgressModal
+          show={this.state.dispensingState == 1}
+          progress={this.state.progress}
+          recipeName={this.state.recipeName}
+        />
+        <ResultsModal
+          show={this.state.dispensingState == 2}
+          dismissModal={this.dismissModal}
+          lastResult={this.state.lastResult}
+          recipeName={this.state.recipeName}
+        />
       </>)
   }
 }
