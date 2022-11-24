@@ -98,12 +98,12 @@ class App extends React.Component {
         </div>
         <Footer />
         <ProgressModal
-          show={this.state.dispensingState == 1}
+          show={this.state.dispensingState === 1}
           progress={this.state.progress}
           recipeName={this.state.recipeName}
         />
         <ResultsModal
-          show={this.state.dispensingState == 2}
+          show={this.state.dispensingState === 2}
           dismissModal={this.dismissModal}
           lastResult={this.state.lastResult}
           recipeName={this.state.recipeName}

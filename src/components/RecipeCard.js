@@ -18,7 +18,7 @@ class RecipeCard extends React.Component {
     handleSubmitClick = () => {
 
         // hack for customization
-        if (this.recipe_id == 2) {
+        if (this.recipe_id === 2) {
             var target_recipe_id = -1;
             let oregano = document.querySelector("#oregano").checked;
             let bellpepper = document.querySelector("#bell-pepper").checked;

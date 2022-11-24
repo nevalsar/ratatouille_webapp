@@ -18,7 +18,7 @@ const ProgressModal = (props) => {
             <Modal.Body>
                 <h4 className='text-center'>Your {props.recipeName} is being prepared!</h4>
                 <div className='modal-spinner-box'>
-                    <img className='progress-gif' src="./rata-cooking.gif" />
+                    <img className='progress-gif' src="./rata-cooking.gif" alt="Animation of Ratatouille's mascot Cherokee sitting on a robotic arm stirring a cooking pot." />
                 </div>
                 <ProgressBar className='mt-3' variant="success" animated now={props.progress} />
             </Modal.Body>

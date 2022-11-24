@@ -17,14 +17,14 @@ const ResultsModal = (props) => {
             show={props.show}
         >
             <Modal.Body>
-                {props.lastResult == "success" &&
+                {props.lastResult === "success" &&
                     <>
                         <h4 className='text-center'>Your {props.recipeName} is ready!</h4>
                         <i className="bi-check-circle-fill text-success" />
                     </>
                 }
 
-                {props.lastResult == "error" &&
+                {props.lastResult === "error" &&
                     <>
                         <h4 className='text-center'>Uh oh!</h4>
                         <h4 className='text-center'>We ran into an error.</h4>
@@ -32,7 +32,7 @@ const ResultsModal = (props) => {
                     </>
                 }
 
-                {props.lastResult == "quantityerror" &&
+                {props.lastResult === "quantityerror" &&
                     <>
                         <h4 className='text-center'>Uh oh!</h4>
                         <h4 className='text-center'>Insufficient ingredients to make {props.recipeName}.</h4>
@@ -42,7 +42,7 @@ const ResultsModal = (props) => {
 
             </Modal.Body>
             <Modal.Footer className='justify-content-center'>
-                {props.lastResult == "success" ?
+                {props.lastResult === "success" ?
                     <Button variant="secondary" onClick={props.dismissModal}>
                         Done
                     </Button> :
