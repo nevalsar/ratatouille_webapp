@@ -4,7 +4,12 @@
             "name": "paneer-fried-rice",
             "id": 1,
             "description": "An Indian-Chinese fried rice variant made with rice, paneer (Indian cottage cheese), mixed vegetables, spices and soy sauce.",
-            "choices": []
+            "choices": [
+                {
+                    "name": "Double the portion size",
+                    "scale": 2
+                }
+            ]
         },
         {
             "name": "pasta",

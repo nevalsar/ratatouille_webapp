@@ -18,6 +18,18 @@ class RecipeCard extends React.Component {
     handleSubmitClick = () => {
 
         // hack for customization
+        if (this.recipe_id === 1) {
+            var target_recipe_id = -1;
+            let double_portion = document.querySelector('#double-the-portion-size').checked;
+
+            if (double_portion) {
+                target_recipe_id = 11;
+            } else {
+                target_recipe_id = 12;
+            }
+            this.submitRecipe(target_recipe_id, this.title);
+            return
+        }
         if (this.recipe_id === 2) {
             var target_recipe_id = -1;
             let oregano = document.querySelector("#oregano").checked;
@@ -56,7 +68,7 @@ class RecipeCard extends React.Component {
                                 {this.choices.map(choice =>
                                     <Form.Check
                                         type="checkbox"
-                                        id={choice.name.toLowerCase().replace(" ", "-")}
+                                        id={choice.name.toLowerCase().replaceAll(" ", "-")}
                                         defaultChecked={true}
                                         key={choice.name}
                                         label={choice.name}
